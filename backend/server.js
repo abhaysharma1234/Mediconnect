@@ -15,14 +15,33 @@ connectCloudinary()
 
 // middlewares
 app.use(express.json())
+const allowedOrigins = [
+  "https://mediconnect-frontend-i2j2.onrender.com",
+  "https://mediconnect-admin-jeoq.onrender.com"
+];
+
 app.use(cors({
-  origin: "https://mediconnect-frontend-i2j2.onrender.com",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
+
 app.options("*", cors({
-  origin: "https://mediconnect-frontend-i2j2.onrender.com",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
+
 
 
 // api endpoints
