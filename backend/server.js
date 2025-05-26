@@ -15,7 +15,15 @@ connectCloudinary()
 
 // middlewares
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: "https://mediconnect-frontend-i2j2.onrender.com",
+  credentials: true
+}));
+app.options("*", cors({
+  origin: "https://mediconnect-frontend-i2j2.onrender.com",
+  credentials: true
+}));
+
 
 // api endpoints
 app.use("/api/user", userRouter)
